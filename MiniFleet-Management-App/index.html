@@ -4,12 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fleet Management App</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: lightgray;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0px;
+            padding: 20px;
+        }
+
+        .logincard {
+            width: 100%;
+            max-width: 390px;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) ;
+        }
+
+        .formgroup {
+            margin-bottom: 16px;
+        }
+    </style>
 </head>
 <body>
+    <div id="customModal" class="modal">
+        <div id="modalContent" class="modalcontent">
+            <h3 id="modalTitle" class="modaltitle"></h3>
+            <p id="modalMsg" class="modalmsg"></p>
+            <div id="modalActions" class="modalactions">
+                <button id="modalConfirm" class="modalbtn">OK</button>
+            </div>
+        </div>
+    </div><br>
+
     <div class="logincard">
         <h1>Login Page</h1>
         <p>Sign in to access the Admin Dashboard</p>
     </div>
+    <br><br>
     <form id="loginForm">
         <div class="formgroup">
             <label for="email">Email Address</label>
@@ -25,7 +60,54 @@
     </form>
 
     <script>
-        
+        const customModal= document.getElementById("customModal");
+        const modalTitle= document.getElementById("modalTitle");
+        const modalMsg= document.getElementById("modalmsg");
+        const modalConfirmBtn= document.getElementById("modalConfirm");
+        const loginForm= document.getElementById("loginForm");
+       
+        const showMsg = (title, message, success = false) => {
+            return new Promise((resolve) => {
+                modalTitle.textContent= title;
+                modalMsg.textContent= message;
+
+                modalTitle.style.color= success ? "#059669" : "#dc2626";
+
+                modalConfirmBtn.className= "modalbtn" = (success ? "modalconfirm-success": "modalconfirm-error");
+                modalConfirmBtn.textContent="Close";
+
+                customModal.classList.add("visible");
+
+                const newConfirmBtn = modalConfirmBtn.cloneNode(true);
+
+                modalConfirmBtn.parentNode.replaceChild(newConfirmBtn, modalConfirmBtn);
+
+                const handler = () => {
+                    customModal.classList.remove("visible");
+                    newConfirmBtn.removeEventListener("Click", handler);
+                    resolve();
+                };
+                newConfirmBtn.addEventListener("click", handler);
+            });
+        };
+
+        loginForm.addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const emailInput = document.getElementById("email").value.trim();
+            const passwordInput = document.getElementById("password").value.trim();
+
+            const VALID_EMAIL = "admin@gmail.com";
+            const VALID_PASSWORD = "admin1234";
+
+            if (emailInput === VALID_EMAIL && passwordInput === VALID_PASSWORD) {
+                showMsg("Login Success", "Credentials Correct. Redirecting to Admin Dashboard...", true);
+
+                window.location.href= 'admin.html';
+            } else {
+                showMsg("Login Failed", "Incorrect Email or Pasword. Please try again.", false);
+            }
+        });
     </script>
 </body>
 </html>
