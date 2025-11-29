@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fleet Management App</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbarcontent">
+            <h1 class="navtitle">Admin Dashboard</h1>
+            <div class="filtersgrp">
+                <div class="filteritm">
+                    <label for="categoryfilter">Category:</label>
+                    <select id="categoryfilter">
+                        <option value="All">All</option>
+                        <option value="Auto">Auto</option>
+                        <option value="Car">Car</option>
+                        <option value="Bus">Bus</option>
+                        <option value="Truck">Truck</option>
+                    </select>
+                </div>
+                <div class="filteritm">
+                    <label for="availibilityfilter">Avalibility Status:</label>
+                    <select id="availibilityfilter">
+                        <option value="All">All</option>
+                        <option value="Available">Available</option>
+                        <option value="Unavailable">Unavailable</option>            
+                    </select>
+                </div>
+
+                <button id="clearFilterbtn" class="clearbtn">Clear</button>
+            </div>
+    </div>
+    </nav>
+
+    <main class="maincontainer">
+        <aside class="sidebar">
+            <h2>Add new fleet</h2>
+
+            <form id="fleetForm">
+                <div class="formgroup">
+                    <label for="regNo">Reg No of Vehicle</label>
+                    <input type="text" id="regNo" required placeholder="e.g. ABC 123">
+                </div>
+
+                <div class="formgroup">
+                    <label for="category">Category</label>
+                    <select id="category" required>
+                        <option value="">Select Category</option>
+                        <option value="Auto">Auto</option>
+                        <option value="Car">Car</option>
+                        <option value="Bus">Bus</option>
+                        <option value="Truck">Truck</option>
+                    </select>
+                </div>
+
+                <div class="formgroup">
+                    <label for="drivername">Driver Name</label>
+                    <input type="text" id="drivername" required placeholder="e.g. Jane Smith">
+                </div>
+
+                <div>
+                    <label for="isAvailable" checked>Available</label>
+                </div>
+
+                <button type="submit" class="addbtn">Add</button>
+            </form>
+        </aside>
+
+        <section>
+            <h2>Current Fleet Vehicles</h2>
+            <div id="fleetcardContainer" class="cardgrid">
+                <p id="noVehiclesMsg">No Vehicles Added Yet</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        
+    </script>
+</body>
+</html>
